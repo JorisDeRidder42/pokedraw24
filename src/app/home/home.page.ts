@@ -27,7 +27,6 @@ export class HomePage {
     },5000);
   }
 
-  
   async loadRandomPokemonGen1(){
     try {
       this.disableButtonForSeconds();

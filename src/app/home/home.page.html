@@ -11,18 +11,31 @@
   </ion-fab-button>
 </ion-fab>
 <ion-content [fullscreen]="true" scroll-y="false">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ pokemonGen1?.name }}</ion-card-title>
-        <ion-card-subtitle>#{{ pokemonIndex }}</ion-card-subtitle>
-      </ion-card-header>
-        <img id="pokeImage" [src]="pokeImage" alt="Image random pokémon">
-          <ion-item>
-            Test: {{pokemonGen1?.forms.map(o => <ion-item>{{o.url}}</ion-item>)}}
-
-            <!-- {weaponData?.attack.map(a => <ListGroup.Item key={a.name} action>{a.name} - {a.amount}</ListGroup.Item>)} -->
-          </ion-item>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-card>
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>{{ pokemonGen1?.name }}</ion-card-title>
+          <ion-card-subtitle>#{{ pokemonIndex }}</ion-card-subtitle>
+        </ion-card-header>
+          <ion-card-content>
+            <ion-img id="pokeImage" [src]="pokeImage" alt="Image random pokémon"/>
+            <ion-chip color="warning" *ngFor="let t of pokemonGen1?.types">
+              <ion-label>{{ t.type.name }}</ion-label>
+            </ion-chip>
+            <ion-item>
+            <ion-label text-wrap>
+              Abilities:
+                <span *ngFor="let detail of pokemonGen1?.abilities" class="ion-text-capitalize">
+                  {{ detail.ability.name }}
+                </span>
+            </ion-label>
+            </ion-item>
+        </ion-card-content>
       </ion-card>
+    </ion-row>
+  </ion-grid>
+
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="draw">
