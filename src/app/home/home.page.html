@@ -11,14 +11,18 @@
   </ion-fab-button>
 </ion-fab>
 <ion-content [fullscreen]="true" scroll-y="false">
-  
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{ pokemonGen1?.name }}</ion-card-title>
         <ion-card-subtitle>#{{ pokemonIndex }}</ion-card-subtitle>
       </ion-card-header>
         <img id="pokeImage" [src]="pokeImage" alt="Image random pokémon">
-    </ion-card>
+          <ion-item>
+            Test: {{pokemonGen1?.forms.map(o => <ion-item>{{o.url}}</ion-item>)}}
+
+            <!-- {weaponData?.attack.map(a => <ListGroup.Item key={a.name} action>{a.name} - {a.amount}</ListGroup.Item>)} -->
+          </ion-item>
+      </ion-card>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="draw">

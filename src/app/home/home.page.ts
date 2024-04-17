@@ -25,16 +25,20 @@ export class HomePage {
     setTimeout(() => {
         this.isButtonDisabled = false;
     },5000);
-}
+  }
 
   
   async loadRandomPokemonGen1(){
-    this.disableButtonForSeconds();
-    // Show the the Id from the pokémon from gen 1
-    this.pokemonIndex = this.service.CreateRandomIndex();
-    // Show the the image with the specific Id from the pokémon from gen 1
-    this.pokeImage = this.service.getPokeImage(this.pokemonIndex);
-    // Shows the name from the Id from pokémon gen 1
-    this.service.getPokemonFromGen1(this.pokemonIndex).subscribe((res) => this.pokemonGen1 = res);
+    try {
+      this.disableButtonForSeconds();
+      // Show the the Id from the pokémon from gen 1
+      this.pokemonIndex = this.service.CreateRandomIndex();
+      // Show the the image with the specific Id from the pokémon from gen 1
+      this.pokeImage = this.service.getPokeImage(this.pokemonIndex);
+      // Shows the name from the Id from pokémon gen 1
+      this.service.getPokemonFromGen1(this.pokemonIndex).subscribe((res) => this.pokemonGen1 = res)
+    } catch (error) {
+      console.log('Something went wrong', error);
+    }
   }
 }
