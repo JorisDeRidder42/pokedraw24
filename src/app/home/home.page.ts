@@ -12,9 +12,8 @@ export class HomePage {
   pokeImage: string = "";
   pokemonGen1:any;
   isButtonDisabled: boolean = false;
-  toggleCanvas: boolean = false;
 
-  constructor(public route: ActivatedRoute, private service :ApiserviceService) {}
+  constructor(private service :ApiserviceService) {}
   
   ngOnInit(){
     this.loadRandomPokemonGen1();
@@ -26,14 +25,6 @@ export class HomePage {
     setTimeout(() => {
         this.isButtonDisabled = false;
     },5000);
-  }
-
-  showCanvas(){
-    this.toggleCanvas = true
-
-  }
-  hideCanvas(){
-    this.toggleCanvas = false;
   }
 
   async loadRandomPokemonGen1(){

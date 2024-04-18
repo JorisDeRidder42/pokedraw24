@@ -27,4 +27,17 @@ export class ApiserviceService {
   getPokeImage(index: number){
     return `${this.imageUrl}${index}.png`;
   }
+  //Get all Pokemon
+  getPokedex(offset = 0):any{
+    return this.http
+    .get(
+      `${this.baseUrl}?offset=${offset}&limit=25`,{
+      observe: 'body',
+      responseType: 'json',
+      params: {
+        offset: 25,
+      }
+    })      
+    .subscribe(res => console.log("res", res))
+  }
 }

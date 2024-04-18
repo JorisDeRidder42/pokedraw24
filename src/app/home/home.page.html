@@ -5,24 +5,13 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-fab *ngIf="toggleCanvas" vertical="top" horizontal="end" slot="false">
-  <ion-fab-button [disabled]="isButtonDisabled" color="warning" (click)="loadRandomPokemonGen1()">
-    <ion-icon name="dice"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-<ion-fab *ngIf="!toggleCanvas"  vertical="top" horizontal="start" slot="false">
-  <ion-fab-button color="primary" (click)="showCanvas()">
-    <ion-icon name="pencil"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-<ion-fab *ngIf="toggleCanvas"  vertical="top" horizontal="start" slot="false">
-  <ion-fab-button color="danger" (click)="hideCanvas()">
-    <ion-icon name="eye"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
 
-<ion-content *ngIf="!toggleCanvas" [fullscreen]="true" scroll-y="false">
-  <ion-grid>
+<ion-content [fullscreen]="true" scroll-y="false">
+  <ion-fab vertical="top" horizontal="end" slot="false">
+    <ion-fab-button [disabled]="isButtonDisabled" color="warning" (click)="loadRandomPokemonGen1()">
+      <ion-icon name="dice"></ion-icon>
+    </ion-fab-button>
+    </ion-fab>
     <ion-row class="ion-justify-content-center">
       <ion-card>
         <ion-card-header class="ion-text-center">
@@ -31,9 +20,10 @@
         </ion-card-header>
           <ion-card-content>
             <ion-img id="pokeImage" [src]="pokeImage" alt="Image random pokémon"/>
-            <ion-chip color="warning" *ngFor="let t of pokemonGen1?.types">
-              <ion-label>{{ t.type.name }}</ion-label>
-            </ion-chip>
+              <ion-chip *ngFor="let t of pokemonGen1?.types"> 
+                <ion-label>{{t.type.name}}</ion-label>
+              </ion-chip>
+
             <ion-item>
             <ion-label text-wrap>
               Abilities:
@@ -45,5 +35,21 @@
         </ion-card-content>
       </ion-card>
     </ion-row>
-  </ion-grid>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="draw">
+          <ion-icon name="pencil"></ion-icon>
+          <ion-label>Draw</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="pokedex">
+          <ion-icon src="/assets/icon/generated.svg"></ion-icon>
+          <ion-label>Pokédex</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="about">
+          <ion-icon name="information-circle"></ion-icon>
+          <ion-label>About</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
 </ion-content>
