@@ -10,20 +10,23 @@ export class PokedexPage implements OnInit {
   offset: number = 0;
   searchText: string = '';
   headerVisible: boolean = false;
-  pokemon:Object[] = [];
+  pokemon:any;
 
   constructor(private service: ApiserviceService){ }
 
   ngOnInit() {
+    this.loadPokemons();
   }
 
-  loadPokemons(loadMore = false){
-    if(loadMore){
-      this.offset += 25;
-    }
+  loadPokemons(loadMore=false){
+    //Loadmore gets called, loads 25 more pokémon
+    // if(loadMore){
+    //   this.offset += 25;
+    // }
+
     this.service.getPokedex(this.offset)
-      .subscribe((res: any) => {
-        this.pokemon=[...this.pokemon, ...res];      
+    .subscribe((res: any) => {
+      this.pokemon = res;
+    })
   }
-  )}
 }

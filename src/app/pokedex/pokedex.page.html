@@ -3,6 +3,9 @@
     <ion-title>
       Pokédex
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <!-- <ion-searchbar id="searchbar" type="name" placeholder="Search pokemon" [value]="searchText" placeholder="Search"  debounce="500" (ionChange)="searchPokemon($event)"></ion-searchbar> -->
@@ -13,14 +16,8 @@
           <img [src]="poke.image" style="background:#f2f2f2;">
         </ion-avatar>
         <ion-label class="ion-text-capitalize">
-          <h2>{{poke.name}}</h2>
-          <h6>#{{poke.pokeIndex}}</h6>                                                                           
+          <h2>{{poke.name}}</h2>                                                                        
         </ion-label>
       </ion-item>
     </ion-list>
-    
-    <!-- <ion-infinite-scroll (ionInfinite)="loadPokemon(true, $event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more pokemon...">
-      </ion-infinite-scroll-content>
-      </ion-infinite-scroll> -->
 </ion-content>

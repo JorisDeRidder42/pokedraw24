@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
+import { catchError, map, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class ApiserviceService {
   maxGen1: number = 151;
   minGen1: number = 1;
   baseUrl = environment.baseUrl;
-  imageUrl = environment.imageUrl
+  imageUrl = environment.imageUrl;
+  pokemons:any;
 
 
   constructor(private http: HttpClient) { }
@@ -28,7 +30,7 @@ export class ApiserviceService {
     return `${this.imageUrl}${index}.png`;
   }
   //Get all Pokemon
-  getPokedex(offset = 0):any{
+  getPokedex(offset = 0, filter = ''):any{
     return this.http
     .get(
       `${this.baseUrl}?offset=${offset}&limit=25`,{
@@ -36,8 +38,22 @@ export class ApiserviceService {
       responseType: 'json',
       params: {
         offset: 25,
+        name: `/^${filter}.*/i`
       }
-    })      
-    .subscribe(res => console.log("res", res))
+    })
+    .pipe(
+        retry(3),
+      map((result: { [x: string]: any; }) => {
+        return result['results'];
+      }),
+      map((pokemons: any[]) => {
+        //for loop de pokemon index
+        return pokemons.map((poke, index) => {
+           poke.image = this.getPokeImage(index + offset + 1)
+           poke.pokeIndex = offset + index + 1;
+           return poke;
+        });
+      })
+    )
   }
-}
+  }
