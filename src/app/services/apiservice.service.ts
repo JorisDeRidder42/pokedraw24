@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { catchError, map, retry } from 'rxjs';
+import { map, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +34,6 @@ export class ApiserviceService {
     return this.http
     .get(
       `${this.baseUrl}?offset=${offset}&limit=25`,{
-      observe: 'body',
-      responseType: 'json',
       params: {
         offset: 25,
         name: `/^${filter}.*/i`
@@ -43,7 +41,7 @@ export class ApiserviceService {
     })
     .pipe(
         retry(3),
-      map((result: { [x: string]: any; }) => {
+      map((result:any) => {
         return result['results'];
       }),
       map((pokemons: any[]) => {
@@ -56,4 +54,11 @@ export class ApiserviceService {
       })
     )
   }
+  getPokeDetails(indexPokemon: string | null){
+    return this.http.get(`${this.baseUrl}${indexPokemon}`).pipe(
+      map(pokemon =>{
+        return pokemon
+      })
+    );
   }
+}

@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'pokedex',
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
+  },
+  {
+    path: 'pokedex/:index',
+    loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
   }
 ];
 @NgModule({
