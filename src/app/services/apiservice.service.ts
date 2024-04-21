@@ -12,6 +12,7 @@ export class ApiserviceService {
   baseUrl = environment.baseUrl;
   imageUrl = environment.imageUrl;
   pokemons:any;
+  data:any;
 
 
   constructor(private http: HttpClient) { }
@@ -30,29 +31,14 @@ export class ApiserviceService {
     return `${this.imageUrl}${index}.png`;
   }
   //Get all Pokemon
-  getPokedex(offset = 0, filter = ''):any{
+  getPokedex(offset = 0):any{
     return this.http
     .get(
-      `${this.baseUrl}?offset=${offset}&limit=25`,{
+      `${this.baseUrl}?offset=${offset}&limit=26`,{
       params: {
-        offset: 25,
-        name: `/^${filter}.*/i`
+        offset: 26,
       }
     })
-    .pipe(
-        retry(3),
-      map((result:any) => {
-        return result['results'];
-      }),
-      map((pokemons: any[]) => {
-        //for loop de pokemon index
-        return pokemons.map((poke, index) => {
-           poke.image = this.getPokeImage(index + offset + 1)
-           poke.pokeIndex = offset + index + 1;
-           return poke;
-        });
-      })
-    )
   }
   getPokeDetails(indexPokemon: string | null){
     return this.http.get(`${this.baseUrl}${indexPokemon}`).pipe(

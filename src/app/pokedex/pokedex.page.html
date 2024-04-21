@@ -12,9 +12,6 @@
 <ion-content>
     <ion-list *ngIf="!loaded">
     <ion-item>
-      <ion-avatar slot="start">
-        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
-      </ion-avatar>
       <ion-label *ngFor="let poke of pokemon;">
         <h3>
           <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
@@ -26,13 +23,13 @@
     </ion-item>
   </ion-list>
   <ion-list *ngIf="loaded">
-      <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.pokeIndex">
-        <ion-avatar slot="start">
-          <img [src]="poke.image" style="background:#f2f2f2;">
-        </ion-avatar>
+      <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.name">
         <ion-label class="ion-text-capitalize">
-          <h2>{{poke.name}}</h2>                                                                        
+          <h2>{{poke.name}}</h2>                                                                     
         </ion-label>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="loadPokemons()">
+      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

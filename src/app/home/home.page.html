@@ -21,7 +21,7 @@
           <ion-card-content>
             <ion-spinner *ngIf="!loaded" name="circular"></ion-spinner>
             <ion-img *ngIf="loaded" id="pokeImage" [src]="pokeImage" alt="Image random pokémon"/>
-              <ion-chip *ngFor="let t of pokemonGen1?.types"> 
+              <ion-chip *ngFor="let t of pokemonGen1?.types" color="danger"> 
                 <ion-label>{{t.type.name}}</ion-label>
               </ion-chip>
 

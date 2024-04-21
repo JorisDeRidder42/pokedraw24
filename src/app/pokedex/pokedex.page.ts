@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiserviceService } from '../services/apiservice.service';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-pokedex',
@@ -11,23 +12,32 @@ export class PokedexPage implements OnInit {
   pokemon:any;
   loaded: boolean = false;
 
+  @ViewChild(IonInfiniteScroll) infinite: IonInfiniteScroll | undefined;
 
   constructor(private service: ApiserviceService){ }
 
   ngOnInit() {
     this.loadPokemons();
   }
-
-  loadPokemons(loadMore=false){
-    //Loadmore gets called, loads 25 more pokémon
-    // if(loadMore){
-    //   this.offset += 25;
-    // }
-
+  // On start loadPokemons
+  loadPokemons(loadMore = false, event?: any) {
+    if (loadMore) {
+      this.offset += 25;
+    }
     this.service.getPokedex(this.offset)
     .subscribe((res: any) => {
-      this.pokemon = res;
+      this.pokemon = [...res.results];
+      console.log('pok', this.pokemon)
       this.loaded = true;
-    })
+  
+      if (event) {
+        event.target.complete();
+      }
+
+      // Optional
+      if (this.offset == 125 && this.infinite != null) {
+        this.infinite.disabled = true;
+      }
+    });
   }
 }
