@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiserviceService } from '../services/apiservice.service';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-pokedex',
@@ -8,8 +9,9 @@ import { IonInfiniteScroll } from '@ionic/angular';
   styleUrls: ['./pokedex.page.scss'],
 })
 export class PokedexPage implements OnInit {
-  offset: number = 0;
+  offset = 0;
   pokemon:any;
+  detail:any;
   loaded: boolean = false;
 
   @ViewChild(IonInfiniteScroll) infinite: IonInfiniteScroll | undefined;
@@ -20,16 +22,16 @@ export class PokedexPage implements OnInit {
     this.loadPokemons();
   }
   // On start loadPokemons
-  loadPokemons(loadMore = false, event?: any) {
+  loadPokemons(loadMore = false, event?: { target: { complete: () => void; }; } | undefined) {
     if (loadMore) {
       this.offset += 25;
     }
-    this.service.getPokedex(this.offset)
-    .subscribe((res: any) => {
-      this.pokemon = [...res.results];
-      console.log('pok', this.pokemon)
+
+    this.service.getPokedex(this.offset).subscribe((res: any) => {
+      this.pokemon = res;
       this.loaded = true;
-  
+      console.log('pok', this.pokemon);
+
       if (event) {
         event.target.complete();
       }
@@ -38,6 +40,23 @@ export class PokedexPage implements OnInit {
       if (this.offset == 125 && this.infinite != null) {
         this.infinite.disabled = true;
       }
+    });
+  }
+  onSearchChange(e: any) {
+    let value = e.detail.value;
+
+    if (value == '') {
+      this.offset = 0;
+      this.loadPokemons();
+      return;
+    }
+
+    this.service.findPokemon(value).subscribe(res => {
+      this.pokemon = [res];
+      this.loaded = false;
+    }, (err: any) => {
+      console.log('err', err);
+      this.pokemon = [];
     });
   }
 }

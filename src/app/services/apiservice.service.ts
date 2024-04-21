@@ -31,19 +31,28 @@ export class ApiserviceService {
     return `${this.imageUrl}${index}.png`;
   }
   //Get all Pokemon
-  getPokedex(offset = 0):any{
+  getPokedex(offset = 0) {
     return this.http
-    .get(
-      `${this.baseUrl}?offset=${offset}&limit=26`,{
-      params: {
-        offset: 26,
-      }
-    })
+      .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
+        map((res: any) => {
+          // Convert the object into an array of its values
+          return res.results;
+        })
+      )
   }
+
   getPokeDetails(indexPokemon: string | null){
-    return this.http.get(`${this.baseUrl}${indexPokemon}`).pipe(
-      map(pokemon =>{
+    return this.http.get(`${this.baseUrl}${indexPokemon}`)
+    .pipe(
+      map(pokemon => {
         return pokemon
+      })
+    );
+  }
+  findPokemon(search: any) {
+    return this.http.get(`${this.baseUrl}/pokemon/${search}`).pipe(
+      map(pokemon => {
+        return pokemon;
       })
     );
   }

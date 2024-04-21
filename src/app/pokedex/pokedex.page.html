@@ -1,35 +1,43 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-title>
-      Pokédex
-    </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="pokedex"></ion-back-button>
     </ion-buttons>
+    <ion-title>
+      Pokedex
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- <ion-searchbar id="searchbar" type="name" placeholder="Search pokemon" [value]="searchText" placeholder="Search"  debounce="500" (ionChange)="searchPokemon($event)"></ion-searchbar> -->
+
 <ion-content>
-    <ion-list *ngIf="!loaded">
-    <ion-item>
-      <ion-label *ngFor="let poke of pokemon;">
-        <h3>
-          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
-        </h3>
+  <ion-searchbar placeholder="Search Pokemon" (ionChange)="onSearchChange($event)"></ion-searchbar>
+  <ion-list *ngIf="!loaded">
+    <ion-item *ngFor="let i of [1,2,3,4,5,6,7,8]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label class="ion-text-capitalize">
+        <h2>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h2>
         <p>
-          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
         </p>
       </ion-label>
     </ion-item>
   </ion-list>
+
   <ion-list *ngIf="loaded">
-      <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.name">
-        <ion-label class="ion-text-capitalize">
-          <h2>{{poke.name}}</h2>                                                                     
-        </ion-label>
-      </ion-item>
-    </ion-list>
-    <ion-infinite-scroll (ionInfinite)="loadPokemons()">
-      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.name">
+      <ion-label class="ion-text-capitalize">
+        <h2>{{ poke.name }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadPokemons(true, $event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more Pokemon...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
