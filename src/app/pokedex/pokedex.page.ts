@@ -8,9 +8,9 @@ import { ApiserviceService } from '../services/apiservice.service';
 })
 export class PokedexPage implements OnInit {
   offset: number = 0;
-  searchText: string = '';
-  headerVisible: boolean = false;
   pokemon:any;
+  loaded: boolean = false;
+
 
   constructor(private service: ApiserviceService){ }
 
@@ -27,6 +27,7 @@ export class PokedexPage implements OnInit {
     this.service.getPokedex(this.offset)
     .subscribe((res: any) => {
       this.pokemon = res;
+      this.loaded = true;
     })
   }
 }

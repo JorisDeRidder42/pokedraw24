@@ -19,17 +19,19 @@
           <ion-card-subtitle>#{{ pokemonIndex }}</ion-card-subtitle>
         </ion-card-header>
           <ion-card-content>
-            <ion-img id="pokeImage" [src]="pokeImage" alt="Image random pokémon"/>
+            <ion-spinner *ngIf="!loaded" name="circular"></ion-spinner>
+            <ion-img *ngIf="loaded" id="pokeImage" [src]="pokeImage" alt="Image random pokémon"/>
               <ion-chip *ngFor="let t of pokemonGen1?.types"> 
                 <ion-label>{{t.type.name}}</ion-label>
               </ion-chip>
 
             <ion-item>
-            <ion-label text-wrap>
-              Abilities:
-                <span *ngFor="let detail of pokemonGen1?.abilities" class="ion-text-capitalize">
-                  {{ detail.ability.name }}
-                </span>
+            <ion-label>
+                  Abilities:
+                  <div *ngFor="let detail of pokemonGen1?.abilities;"
+                    class="ion-text-capitalize">
+                    {{ detail.ability.name }}
+                </div>
             </ion-label>
             </ion-item>
         </ion-card-content>

@@ -9,8 +9,23 @@
   </ion-toolbar>
 </ion-header>
 <!-- <ion-searchbar id="searchbar" type="name" placeholder="Search pokemon" [value]="searchText" placeholder="Search"  debounce="500" (ionChange)="searchPokemon($event)"></ion-searchbar> -->
-  <ion-content>
-    <ion-list>
+<ion-content>
+    <ion-list *ngIf="!loaded">
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label *ngFor="let poke of pokemon;">
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="loaded">
       <ion-item *ngFor="let poke of pokemon;" [routerLink]="poke.pokeIndex">
         <ion-avatar slot="start">
           <img [src]="poke.image" style="background:#f2f2f2;">

@@ -12,6 +12,7 @@ export class HomePage {
   pokeImage: string = "";
   pokemonGen1:any;
   isButtonDisabled: boolean = false;
+  loaded:boolean = false;
 
   constructor(private service :ApiserviceService) {}
   
@@ -36,6 +37,7 @@ export class HomePage {
       this.pokeImage = this.service.getPokeImage(this.pokemonIndex);
       // Shows the name from the Id from pokémon gen 1
       this.service.getPokemonFromGen1(this.pokemonIndex).subscribe((res) => this.pokemonGen1 = res)
+      this.loaded = true;
     } catch (error) {
       console.log('Something went wrong', error);
     }

@@ -9,6 +9,7 @@ import { ApiserviceService } from '../services/apiservice.service';
 })
 export class DetailsPage implements OnInit {
   details: any;
+  isShinies: boolean = false;
 
   constructor(private route: ActivatedRoute, private service: ApiserviceService) { }
 
@@ -16,6 +17,7 @@ export class DetailsPage implements OnInit {
     let index = this.route.snapshot.paramMap.get('index');
     this.service.getPokeDetails(index).subscribe(details => {
       this.details = details;
+      this.isShinies = false;
     })
   }
 
