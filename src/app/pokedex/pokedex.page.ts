@@ -44,15 +44,18 @@ export class PokedexPage implements OnInit {
   }
   onSearchChange(e: any) {
     let value = e.detail.value;
+    console.log("val", value);
 
     if (value == '') {
       this.offset = 0;
       this.loadPokemons();
       return;
     }
-
+    console.log('called');
     this.service.findPokemon(value).subscribe(res => {
-      this.pokemon = [res];
+      console.log('called2');
+      this.pokemon = res;  
+      console.log("pokemon", this.pokemon);
       this.loaded = false;
     }, (err: any) => {
       console.log('err', err);

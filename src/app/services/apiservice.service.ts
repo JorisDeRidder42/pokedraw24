@@ -50,7 +50,7 @@ export class ApiserviceService {
     );
   }
   findPokemon(search: any) {
-    return this.http.get(`${this.baseUrl}/pokemon/${search}`).pipe(
+    return this.http.get(`${this.baseUrl}${search}`).pipe(
       map(pokemon => {
         return pokemon;
       })
