@@ -31,16 +31,35 @@ export class ApiserviceService {
     return `${this.imageUrl}${index}.png`;
   }
   //Get all Pokemon
-  getPokedex(offset = 0) {
-    return this.http
-      .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
-        map((res: any) => {
-          // Convert the object into an array of its values
-          return res.results;
+  // getPokedex(offset = 0) {
+  //   return this.http
+  //     .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
+  //       map((res: any) => {
+  //         // Convert the object into an array of its values
+  //         return res.results;
+  //       })
+  //     )
+  // }
+    getPokedex(offset = 0, type?: string, height?: string, weight?: string): any {
+      let url = `${this.baseUrl}?offset=${offset}&limit=25`;
+      // Apply filters
+      if (type) {
+        url += `?type=${type}`;
+      }
+      if (height) {
+        url += `&height=${height}`;
+      }
+      if (weight) {
+        url += `&weight=${weight}`;
+      }
+      return this.http.get(url).pipe(
+        map((res:any) => {
+          console.log(url)
+          return res.results
         })
-      )
-  }
-
+      );
+    }
+  
   getPokeDetails(indexPokemon: string | null){
     return this.http.get(`${this.baseUrl}${indexPokemon}`)
     .pipe(
@@ -50,10 +69,14 @@ export class ApiserviceService {
     );
   }
   findPokemon(search: any) {
-    return this.http.get(`${this.baseUrl}${search}`).pipe(
-      map(pokemon => {
-        return pokemon;
-      })
-    );
+    return this.http.get(`${this.baseUrl}${search}`).subscribe((res => {
+      this.pokemons = res;
+    }
+    ));
+  }
+  filterPokemon(type: string | null){
+    return this.http.get(`${this.baseUrl}/type/${type}`).pipe(
+          map((res: any) => this.pokemons = res)
+        );
   }
 }

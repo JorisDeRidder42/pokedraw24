@@ -28,7 +28,20 @@
         </ion-card-title>
       </ion-card-header>
 
-      <ion-card-content>
+      <ion-card>
+        <ion-card-content>
+          <p>Height: {{ details?.height }}</p>
+          <p>Weight: {{ details?.weight }}</p>
+          <ion-item>
+            <ion-label text-wrap><b>Abilities:</b> <span *ngFor="let a of details.abilities; let isLast = last"
+                class="ion-text-capitalize">
+                {{ a.ability.name }}{{ !isLast ? ',' : '' }}
+              </span></ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- <ion-card-content>
         <ion-list lines="full">
           <ion-item>
             <ion-label text-wrap><b>Abilities:</b> <span *ngFor="let a of details.abilities; let isLast = last"
@@ -43,6 +56,6 @@
             </ion-label>
           </ion-item>
         </ion-list>
-      </ion-card-content>
+      </ion-card-content> -->
     </ion-card>
 </ion-content>

@@ -13,6 +13,7 @@ export class PokedexPage implements OnInit {
   pokemon:any;
   detail:any;
   loaded: boolean = false;
+  types: string[] = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon'];
 
   @ViewChild(IonInfiniteScroll) infinite: IonInfiniteScroll | undefined;
 
@@ -44,7 +45,6 @@ export class PokedexPage implements OnInit {
   }
   onSearchChange(e: any) {
     let value = e.detail.value;
-    console.log("val", value);
 
     if (value == '') {
       this.offset = 0;
@@ -52,14 +52,13 @@ export class PokedexPage implements OnInit {
       return;
     }
     console.log('called');
-    this.service.findPokemon(value).subscribe(res => {
-      console.log('called2');
-      this.pokemon = res;  
+    this.service.findPokemon(value)
+      console.log('called2'); 
       console.log("pokemon", this.pokemon);
       this.loaded = false;
-    }, (err: any) => {
+    (err: any) => {
       console.log('err', err);
       this.pokemon = [];
-    });
+    };
   }
 }

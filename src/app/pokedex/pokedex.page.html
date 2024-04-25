@@ -6,6 +6,13 @@
     <ion-title>
       Pokedex
     </ion-title>
+    <ion-item slot="end">
+      <ion-label>Type</ion-label>
+      <ion-select>
+        <ion-select-option value="">All</ion-select-option>
+        <ion-select-option *ngFor="let type of types" [value]="type">{{ type }}</ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
