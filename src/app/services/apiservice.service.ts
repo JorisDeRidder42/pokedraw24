@@ -12,7 +12,6 @@ export class ApiserviceService {
   baseUrl = environment.baseUrl;
   imageUrl = environment.imageUrl;
   pokemons:any;
-  data:any;
 
 
   constructor(private http: HttpClient) { }
@@ -20,6 +19,7 @@ export class ApiserviceService {
   //Generates a random number between 1 and 151 to get a random Pokémon
   CreateRandomIndex(){
     const indexPokemon = Math.floor(Math.random() * this.maxGen1) + this.minGen1
+    localStorage.setItem("indexPokemon", indexPokemon.toString());
     return indexPokemon;
   }
   //Gets the random pokémon
@@ -30,35 +30,15 @@ export class ApiserviceService {
   getPokeImage(index: number){
     return `${this.imageUrl}${index}.png`;
   }
-  //Get all Pokemon
-  // getPokedex(offset = 0) {
-  //   return this.http
-  //     .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
-  //       map((res: any) => {
-  //         // Convert the object into an array of its values
-  //         return res.results;
-  //       })
-  //     )
-  // }
-    getPokedex(offset = 0, type?: string, height?: string, weight?: string): any {
-      let url = `${this.baseUrl}?offset=${offset}&limit=25`;
-      // Apply filters
-      if (type) {
-        url += `?type=${type}`;
-      }
-      if (height) {
-        url += `&height=${height}`;
-      }
-      if (weight) {
-        url += `&weight=${weight}`;
-      }
-      return this.http.get(url).pipe(
-        map((res:any) => {
-          console.log(url)
-          return res.results
+  //Get all Pokemons
+  getPokedex(offset = 0) {
+    return this.http
+      .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
+        map((res: any) => {
+          return res.results;
         })
-      );
-    }
+      )
+  }
   
   getPokeDetails(indexPokemon: string | null){
     return this.http.get(`${this.baseUrl}${indexPokemon}`)

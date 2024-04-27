@@ -11,27 +11,28 @@ export class HomePage {
   pokemonIndex:number = 0;
   pokeImage: string = "";
   pokemonGen1:any;
-  isButtonDisabled: boolean = false;
+  buttonDisabled: boolean = false;
   loaded:boolean = false;
 
   constructor(private service :ApiserviceService) {}
   
+  
   ngOnInit(){
+    console.log('ngOnit')
     this.loadRandomPokemonGen1();
   }
-
   // So you can not keep calling the API
-  disableButtonForSeconds() {
-    this.isButtonDisabled = true;
+  disableButtonFor5Seconds() {
+    this.buttonDisabled = true;
     setTimeout(() => {
-        this.isButtonDisabled = false;
+        this.buttonDisabled = false;
     },5000);
   }
 
   async loadRandomPokemonGen1(){
     try {
-      this.disableButtonForSeconds();
-      // Show the the Id from the pokémon from gen 1
+      this.disableButtonFor5Seconds();
+      // Get the the Id from the pokémon from gen 1
       this.pokemonIndex = this.service.CreateRandomIndex();
       // Show the the image with the specific Id from the pokémon from gen 1
       this.pokeImage = this.service.getPokeImage(this.pokemonIndex);
@@ -42,4 +43,5 @@ export class HomePage {
       console.log('Something went wrong', error);
     }
   }
+  
 }

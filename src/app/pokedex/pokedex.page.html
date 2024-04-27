@@ -1,18 +1,11 @@
 <ion-header>
   <ion-toolbar color="danger">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="pokedex"></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>
       Pokedex
-    </ion-title>
-    <ion-item slot="end">
-      <ion-label>Type</ion-label>
-      <ion-select>
-        <ion-select-option value="">All</ion-select-option>
-        <ion-select-option *ngFor="let type of types" [value]="type">{{ type }}</ion-select-option>
-      </ion-select>
-    </ion-item>
+    </ion-title>  
   </ion-toolbar>
 </ion-header>
 

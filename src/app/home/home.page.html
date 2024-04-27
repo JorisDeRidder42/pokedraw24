@@ -5,13 +5,12 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-fab class="buttons" vertical="bottom" horizontal="end" slot="false">
+  <ion-fab-button [disabled]='buttonDisabled' color="warning" (click)="loadRandomPokemonGen1()">
+    <ion-icon name="dice"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
 <ion-content [fullscreen]="true" scroll-y="false">
-  <ion-fab vertical="top" horizontal="end" slot="false">
-    <ion-fab-button [disabled]="isButtonDisabled" color="warning" (click)="loadRandomPokemonGen1()">
-      <ion-icon name="dice"></ion-icon>
-    </ion-fab-button>
-    </ion-fab>
     <ion-row class="ion-justify-content-center">
       <ion-card>
         <ion-card-header class="ion-text-center">
