@@ -10,6 +10,8 @@ import { ApiserviceService } from '../services/apiservice.service';
 export class DetailsPage implements OnInit {
   details: any;
   isShinies: boolean = false;
+  evolutions: any = [];
+
 
   constructor(private route: ActivatedRoute, private service: ApiserviceService) { }
 
@@ -18,6 +20,10 @@ export class DetailsPage implements OnInit {
     this.service.getPokeDetails(index).subscribe(details => {
       this.details = details;
       this.isShinies = false;
+      this.service.getPokemonEvelutions(index).subscribe((data) => {
+        console.log('data',data)
+        this.evolutions = [data];
+      })
     })
   }
 

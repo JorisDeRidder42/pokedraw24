@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiserviceService } from '../services/apiservice.service';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { pipe } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-pokedex',
@@ -14,6 +15,7 @@ export class PokedexPage implements OnInit {
   detail:any;
   loaded: boolean = false;
   types: string[] = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon'];
+  index:number = 0;
 
   @ViewChild(IonInfiniteScroll) infinite: IonInfiniteScroll | undefined;
 
@@ -22,6 +24,7 @@ export class PokedexPage implements OnInit {
   ngOnInit() {
     this.loadPokemons();
   }
+
   // On start loadPokemons
   loadPokemons(loadMore = false, event?: { target: { complete: () => void; }; } | undefined) {
     if (loadMore) {

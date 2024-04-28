@@ -25,7 +25,7 @@ export class DrawPage implements AfterViewInit {
   
 
   ngAfterViewInit() {
-    this.canvasElement = this.canvas.nativeElement;
+    // this.canvasElement = this.canvas.nativeElement;
   }
 
 }

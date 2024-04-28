@@ -24,7 +24,7 @@ export class ApiserviceService {
   }
   //Gets the random pokémon
   getPokemonFromGen1(indexPokemon:number){
-    return this.http.get(`${this.baseUrl}${indexPokemon}`)
+    return this.http.get(`${this.baseUrl}pokemon/${indexPokemon}`)
  }
   //Gets the image from the pokémon
   getPokeImage(index: number){
@@ -33,7 +33,7 @@ export class ApiserviceService {
   //Get all Pokemons
   getPokedex(offset = 0) {
     return this.http
-      .get(`${this.baseUrl}?offset=${offset}&limit=26`).pipe(
+      .get(`${this.baseUrl}pokemon?offset=${offset}&limit=26`).pipe(
         map((res: any) => {
           console.log('offset',offset)
           return res.results;
@@ -42,9 +42,10 @@ export class ApiserviceService {
   }
   
   getPokeDetails(indexPokemon: string | null){
-    return this.http.get(`${this.baseUrl}${indexPokemon}`)
+    return this.http.get(`${this.baseUrl}pokemon/${indexPokemon}`)
     .pipe(
       map(pokemon => {
+        console.log('id', indexPokemon)
         return pokemon
       })
     );
@@ -56,8 +57,11 @@ export class ApiserviceService {
     ));
   }
   filterPokemon(type: string | null){
-    return this.http.get(`${this.baseUrl}/type/${type}`).pipe(
+    return this.http.get(`${this.baseUrl}type/${type}`).pipe(
           map((res: any) => this.pokemons = res)
         );
+  }
+  getPokemonEvelutions(id: string | null){
+    return this.http.get(`${this.baseUrl}evolution-chain/${id}`)
   }
 }
