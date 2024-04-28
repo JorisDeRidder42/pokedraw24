@@ -10,7 +10,7 @@ import { pipe } from 'rxjs';
 })
 export class PokedexPage implements OnInit {
   offset = 0;
-  pokemon:any;
+  pokemon:any = [];
   detail:any;
   loaded: boolean = false;
   types: string[] = ['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon'];
@@ -25,13 +25,14 @@ export class PokedexPage implements OnInit {
   // On start loadPokemons
   loadPokemons(loadMore = false, event?: { target: { complete: () => void; }; } | undefined) {
     if (loadMore) {
+      console.log('loading...', this.offset)
       this.offset += 25;
     }
 
     this.service.getPokedex(this.offset).subscribe((res: any) => {
-      this.pokemon = res;
+      this.pokemon = [...this.pokemon, ...res];
       this.loaded = true;
-      console.log('pok', this.pokemon);
+      console.log('poké', this.pokemon);
 
       if (event) {
         event.target.complete();
@@ -43,6 +44,7 @@ export class PokedexPage implements OnInit {
       }
     });
   }
+
   onSearchChange(e: any) {
     let value = e.detail.value;
 

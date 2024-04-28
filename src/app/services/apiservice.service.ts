@@ -33,8 +33,9 @@ export class ApiserviceService {
   //Get all Pokemons
   getPokedex(offset = 0) {
     return this.http
-      .get(`${this.baseUrl}?offset=${offset}&limit=25`).pipe(
+      .get(`${this.baseUrl}?offset=${offset}&limit=26`).pipe(
         map((res: any) => {
+          console.log('offset',offset)
           return res.results;
         })
       )

@@ -1,3 +1,6 @@
+import { AboutPageModule } from './about/about.module';
+import { PokedexPageModule } from './pokedex/pokedex.module';
+import { DrawPageModule } from './draw/draw.module';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -8,25 +11,25 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'draw',
+    path: 'home/draw',
     loadChildren: () => import('./draw/draw.module').then( m => m.DrawPageModule)
   },
   {
-    path: 'about',
-    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
-  },
-  {
-    path: 'pokedex',
+    path: 'home/pokedex',
     loadChildren: () => import('./pokedex/pokedex.module').then( m => m.PokedexPageModule)
   },
   {
-    path: 'pokedex/:index',
+    path: 'home/about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'home/pokedex/:index',
     loadChildren: () => import('./details/details.module').then( m => m.DetailsPageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [
