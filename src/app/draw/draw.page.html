@@ -16,7 +16,11 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <canvas class="myCanvas"></canvas>
+    <canvas
+    #myCanvas
+    (touchstart)="handleStart($event)"
+    (touchmove)="handleMove($event)">
+  </canvas>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="draw">

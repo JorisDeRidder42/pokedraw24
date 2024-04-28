@@ -21,13 +21,11 @@ export class DrawPage implements AfterViewInit {
   indexArray :number = -1;
   dataUrl:string = "";
 
-  constructor(private plt: Platform, private toastCtrl: ToastController) {}
+  constructor(private plt: Platform, private toastCtrl: ToastController, public renderer: Renderer2) {}
   
 
   ngAfterViewInit() {
-    // this.canvasElement = this.canvas.nativeElement;
-    // this.canvasElement.width = this.plt.width() + '';
-    // this.canvasElement.height = 200;
+    this.canvasElement = this.canvas.nativeElement;
   }
 
 }

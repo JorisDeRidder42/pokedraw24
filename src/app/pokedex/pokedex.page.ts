@@ -45,6 +45,7 @@ export class PokedexPage implements OnInit {
     });
   }
 
+  // Not yet working TODO!
   onSearchChange(e: any) {
     let value = e.detail.value;
 
@@ -53,9 +54,7 @@ export class PokedexPage implements OnInit {
       this.loadPokemons();
       return;
     }
-    console.log('called');
     this.service.findPokemon(value)
-      console.log('called2'); 
       console.log("pokemon", this.pokemon);
       this.loaded = false;
     (err: any) => {
